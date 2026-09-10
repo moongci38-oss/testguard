@@ -13,7 +13,12 @@ jobs:
   self:
     if: github.event_name == 'pull_request'
     runs-on: ubuntu-latest
-    permissions: { pull-requests: write }
+    # ⚠️ contents: read 가 반드시 함께 있어야 한다. `permissions:` 블록은 기본 권한 집합을
+    #    **대체**하므로, pull-requests 만 적으면 contents 가 사라져 체크아웃이
+    #    "Repository not found" 로 죽는다(2026-09-10 실측, private 레포에서 재현).
+    permissions:
+      contents: read
+      pull-requests: write
     steps:
       - uses: actions/checkout@v4
       - uses: ./
