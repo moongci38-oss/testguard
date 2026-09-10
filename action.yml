@@ -7,7 +7,10 @@ branding:
 
 inputs:
   github-token:
-    description: 'PR 파일 목록 조회와 코멘트에 쓰는 토큰. 보통 ${{ secrets.GITHUB_TOKEN }}'
+    # ⚠️ 이 설명문에 ${{ ... }} 를 쓰면 안 된다 — GitHub 이 action.yml 을 읽을 때 수식으로
+    #    해석해서 'Unrecognized named-value: secrets' 로 **파일 로드 자체가 실패**한다
+    #    (2026-09-10 실측, PR #1). 설명문에서는 중괄호를 쓰지 않는다.
+    description: 'PR 파일 목록 조회와 코멘트에 쓰는 토큰. 보통 secrets.GITHUB_TOKEN 을 넘긴다'
     required: true
   test-globs:
     description: '테스트 파일로 볼 경로 패턴(줄바꿈 구분). 기본값은 흔한 규칙들'
@@ -32,9 +35,8 @@ inputs:
 
 outputs:
   findings:
-    description: '탐지 건수'
-    value: ${{ steps.run.outputs.findings }}
+    description: '탐지 건수 (스크립트가 GITHUB_OUTPUT 에 직접 쓴다)'
 
 runs:
-  using: 'node20'
+  using: 'node24'   # node20 은 2025-09 폐기 — 러너가 강제로 24로 올린다
   main: 'src/index.mjs'
