@@ -44,7 +44,7 @@ jobs:
       contents: read         # ⚠️ 빠뜨리면 체크아웃이 "Repository not found" 로 죽는다
       pull-requests: write   # 코멘트용
     steps:
-      - uses: lumir/testguard@v0
+      - uses: moongci38-oss/testguard@v0
         with:
           github-token: ${{ secrets.GITHUB_TOKEN }}
 ```
