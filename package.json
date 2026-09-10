@@ -1,0 +1,9 @@
+{
+  "name": "testguard",
+  "version": "0.1.0",
+  "description": "AI 에이전트가 테스트를 약하게 만들어 CI를 초록으로 만든 PR을 잡아내는 GitHub Action",
+  "type": "module",
+  "license": "MIT",
+  "scripts": { "test": "node --test test/*.test.mjs" },
+  "engines": { "node": ">=20" }
+}

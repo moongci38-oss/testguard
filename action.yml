@@ -1,0 +1,40 @@
+name: 'TestGuard'
+description: 'PR이 테스트를 약하게 만들어 CI를 초록으로 만들었는지 검사한다 (skip 추가·assert 삭제·기대값 하향·테스트 삭제)'
+author: 'Lumir'
+branding:
+  icon: 'shield-off'
+  color: 'red'
+
+inputs:
+  github-token:
+    description: 'PR 파일 목록 조회와 코멘트에 쓰는 토큰. 보통 ${{ secrets.GITHUB_TOKEN }}'
+    required: true
+  test-globs:
+    description: '테스트 파일로 볼 경로 패턴(줄바꿈 구분). 기본값은 흔한 규칙들'
+    required: false
+    default: |
+      **/*.test.*
+      **/*.spec.*
+      **/test_*.py
+      **/*_test.py
+      **/*_test.go
+      **/tests/**
+      **/test/**
+      **/__tests__/**
+  fail-on-detect:
+    description: '탐지 시 Action을 실패시킬지. 기본은 false — 처음엔 알려주기만 한다'
+    required: false
+    default: 'false'
+  comment:
+    description: 'PR에 코멘트를 남길지'
+    required: false
+    default: 'true'
+
+outputs:
+  findings:
+    description: '탐지 건수'
+    value: ${{ steps.run.outputs.findings }}
+
+runs:
+  using: 'node20'
+  main: 'src/index.mjs'
