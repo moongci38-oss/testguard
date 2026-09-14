@@ -7,7 +7,7 @@ branding:
 
 inputs:
   github-token:
-    # ⚠️ 이 설명문에 ${{ ... }} 를 쓰면 안 된다 — GitHub 이 action.yml 을 읽을 때 수식으로
+    # ⚠️ 이 설명문에 달러-중괄호 수식을 쓰면 안 된다 — GitHub 이 action.yml 을 읽을 때 수식으로
     #    해석해서 'Unrecognized named-value: secrets' 로 **파일 로드 자체가 실패**한다
     #    (2026-09-10 실측, PR #1). 설명문에서는 중괄호를 쓰지 않는다.
     description: 'PR 파일 목록 조회와 코멘트에 쓰는 토큰. 보통 secrets.GITHUB_TOKEN 을 넘긴다'
