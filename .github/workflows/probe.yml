@@ -1,0 +1,16 @@
+name: Probe timeout
+on: pull_request
+jobs:
+  step_timeout_with_coe:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - run: sleep 300
+        continue-on-error: true
+        timeout-minutes: 1
+  job_timeout_only:
+    runs-on: ubuntu-latest
+    timeout-minutes: 1
+    steps:
+      - run: sleep 300
+        continue-on-error: true
